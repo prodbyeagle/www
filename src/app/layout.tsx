@@ -9,7 +9,7 @@ import { ReactScan } from '@/components/eagle/react-scan';
 import { ThemeToggle } from '@/components/eagle/theme-toggle';
 
 export const metadata: Metadata = {
-	title: 'prodbyeagle was here.',
+	title: '@prodbyeagle',
 	description:
 		'a passionate developer building performant, accessible, and modern web experiences.',
 	icons: {

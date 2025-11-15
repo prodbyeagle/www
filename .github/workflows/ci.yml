@@ -1,41 +1,72 @@
-name: CI - Lint, Format, and Type Check
+name: Continuous Integration
 
 on:
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BUN_VERSION: latest
+  NEXT_TELEMETRY_DISABLED: 1
 
 jobs:
-    ci:
-        name: Lint, Format, and Type Check
-        runs-on: ubuntu-latest
+  verify:
+    name: Install, Lint, Type Check, and Build
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-            - name: Set up Bun
-              uses: oven-sh/setup-bun@v2
-              with:
-                  bun-version: 'latest'
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
 
-            - name: Cache Bun dependencies
-              uses: actions/cache@v4
-              with:
-                  path: ~/.bun/install/cache
-                  key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb') }}
-                  restore-keys: |
-                      ${{ runner.os }}-bun-
+      - name: Restore Bun cache
+        id: bun-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ env.BUN_VERSION }}-${{ hashFiles('bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-${{ env.BUN_VERSION }}-
+            ${{ runner.os }}-bun-
 
-            - name: Install dependencies
-              run: bun install --frozen-lockfile
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
 
-            - name: Lint with ESLint
-              run: bunx eslint . --ext .ts,.tsx --max-warnings=0
+      - name: Ensure Next.js cache directory
+        run: mkdir -p .next/cache
 
-            - name: Check formatting with Prettier
-              run: bunx prettier --check "**/*.{js,ts,tsx,json,md,css,scss}"
+      - name: Restore Next.js cache
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-next-${{ hashFiles('next.config.ts', 'tsconfig.json', 'package.json', 'bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-next-
 
-            - name: Type check with TypeScript
-              run: bunx tsc --noEmit
+      - name: Lint
+        run: bun run lint
+
+      - name: Check formatting
+        run: bunx prettier --check .
+
+      - name: Type check
+        run: bunx tsc --noEmit
+
+      - name: Build
+        run: bun run build
