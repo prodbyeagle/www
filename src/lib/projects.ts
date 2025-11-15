@@ -2,9 +2,15 @@ import { Project } from '@/types';
 
 export const PROJECTS: Project[] = [
 	{
+		title: 'remove-darkness',
+		description:
+			'server plugin or mod that removes the darkness effect from the game.',
+		tags: ['java', 'kotlin'],
+	},
+	{
 		title: 'eagle-utils',
 		description: 'server plugin with utility modules for private servers.',
-		tags: ['java'],
+		tags: ['kotlin'],
 	},
 	{
 		title: 'mythic-minerals',
@@ -48,7 +54,8 @@ export const PROJECTS: Project[] = [
 	// },
 	{
 		title: 'eaglecord',
-		description: 'modded version of vencord that adds small features and tweaks.',
+		description:
+			'modded version of vencord that adds small features and tweaks.',
 		tags: ['typescript', 'electron'],
 		githubUrl: 'https://github.com/prodbyeagle/eagleCord',
 	},
@@ -60,7 +67,8 @@ export const PROJECTS: Project[] = [
 	},
 	{
 		title: 'discord.js-template',
-		description: 'lightweight discord.js starter with common libraries and configs.',
+		description:
+			'lightweight discord.js starter with common libraries and configs.',
 		tags: ['typescript'],
 		githubUrl: 'https://github.com/meowlounge/discord-template',
 	},

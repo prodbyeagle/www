@@ -43,38 +43,38 @@ const geistMono = Geist_Mono({
 });
 
 export default function RootLayout({
-									   children,
-								   }: Readonly<{
+	children,
+}: Readonly<{
 	children: React.ReactNode;
 }>) {
 	return (
 		<html lang='en' suppressHydrationWarning>
-		<body
-			className={`${geistMono.variable} antialiased font-mono tracking-tight cursor-default select-none relative`}>
-		<ThemeProvider
-			attribute='class'
-			defaultTheme='system'
-			enableSystem>
-			<div className='sticky top-4 z-50 w-full px-4 flex justify-end pointer-events-none'>
-				<div className='pointer-events-auto'>
-					<ThemeToggle />
-				</div>
-			</div>
+			<body
+				className={`${geistMono.variable} antialiased font-mono tracking-tight cursor-default select-none relative`}>
+				<ThemeProvider
+					attribute='class'
+					defaultTheme='system'
+					enableSystem>
+					<div className='sticky top-4 z-50 w-full px-4 flex justify-end pointer-events-none'>
+						<div className='pointer-events-auto'>
+							<ThemeToggle />
+						</div>
+					</div>
 
-			<div className='fixed inset-0 -z-10'>
-				<DottedBackground
-					dotColor='var(--ring)'
-					spacing={28}
-					dotSize={2}
-				/>
-			</div>
+					<div className='fixed inset-0 -z-10'>
+						<DottedBackground
+							dotColor='var(--ring)'
+							spacing={28}
+							dotSize={2}
+						/>
+					</div>
 
-			<div className='container mx-auto relative z-0'>
-				{children}
-			</div>
-		</ThemeProvider>
-		<ReactScan />
-		</body>
+					<div className='container mx-auto relative z-0'>
+						{children}
+					</div>
+				</ThemeProvider>
+				<ReactScan />
+			</body>
 		</html>
 	);
 }

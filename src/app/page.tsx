@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 import { BentoGrid } from '@/components/bento-grid';
@@ -9,7 +10,6 @@ import { Separator } from '@/components/ui/separator';
 import { WordReveal } from '@/components/word-reveal';
 
 import { PROJECTS } from '@/lib/projects';
-import Link from 'next/link';
 
 export default function Home() {
 	const [hovered, setHovered] = useState(false);
@@ -43,9 +43,11 @@ export default function Home() {
 				</section>
 
 				<section className='mb-16'>
-					<h2 className="text-xl font-medium mb-6">
+					<h2 className='text-xl font-medium mb-6'>
 						projects /{' '}
-						<Link href="/socials" className="hover:underline text-destructive">
+						<Link
+							href='/socials'
+							className='hover:underline text-destructive'>
 							socials
 						</Link>
 					</h2>

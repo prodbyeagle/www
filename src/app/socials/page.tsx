@@ -1,57 +1,71 @@
 import Link from 'next/link';
+
 import { WordReveal } from '@/components/word-reveal';
 
 const SOCIALS = [
-	{ title: 'YouTube', url: 'https://youtube.com/@prodbyeagle' },
-	{ title: 'GitHub', url: '/github' },
-	{ title: 'Threads', url: '/threads' },
-].map((social) => ({
-	...social,
-	speed: 0.03 + Math.random() * 0.07,
-}));
+	{ title: 'YouTube', url: '/yt', note: 'videos & livestreams' },
+	{ title: 'GitHub', url: '/github', note: 'projects & code' },
+	{ title: 'Threads', url: '/threads', note: 'quick updates' },
+	{ title: 'Modrinth', url: '/modrinth', note: 'minecraft releases' },
+];
 
 export default function SocialsPage() {
 	return (
-		<div className="min-h-screen flex flex-col px-6 md:px-12 lg:px-24">
-			{/* Back button at the very top */}
-			<div className="pt-14">
+		<div className='pt-14'>
+			<header className='px-6 md:px-12 lg:px-24 pb-12 space-y-6'>
 				<Link
-					href="/"
-					className="text-text-primary hover:text-text-secondary hover:underline transition-all"
-				>
-					← @home
+					href='/'
+					className='text-sm text-text-secondary hover:text-text-primary transition-colors inline-flex items-center gap-2'>
+					<span className='text-base' aria-hidden='true'>
+						←
+					</span>
+					home
 				</Link>
-			</div>
 
-			{/* Main content vertically centered */}
-			<div className="flex flex-col items-center justify-center flex-1 gap-6">
-				<h1 className="text-4xl md:text-5xl font-bold">
-					<WordReveal text="socials" speed={0.05} letter position="bottom" />
-				</h1>
+				<div className='space-y-3 max-w-2xl'>
+					<h1 className='text-4xl md:text-5xl font-bold'>
+						<WordReveal
+							text='socials'
+							speed={0.05}
+							letter
+							position='bottom'
+						/>
+					</h1>
 
-				<div className="flex flex-col gap-4 text-center">
+					<WordReveal
+						speed={0.03}
+						className='text-text-secondary text-lg leading-relaxed'
+						text='A single place for everywhere else. Choose the platform that fits—each link opens the thing I actually use.'
+					/>
+				</div>
+			</header>
+
+			<main className='px-6 md:px-12 lg:px-24 pb-24'>
+				<div className='space-y-4'>
 					{SOCIALS.map((social) => (
 						<a
 							key={social.title}
 							href={social.url}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-xl md:text-2xl text-text-primary hover:underline hover:scale-105 hover:font-medium transition-all duration-300"
-						>
-							<WordReveal
-								text={social.title}
-								speed={social.speed}
-								letter
-								position="left"
-							/>
+							target='_blank'
+							rel='noopener noreferrer'
+							className='group flex items-center justify-between border border-border-secondary rounded-md px-6 py-4 transition-colors hover:border-border-primary hover:bg-muted/30'>
+							<div>
+								<p className='text-2xl font-medium text-text-primary'>
+									{social.title}
+								</p>
+								<p className='text-sm text-text-tertiary mt-1'>
+									{social.note}
+								</p>
+							</div>
+							<span
+								aria-hidden='true'
+								className='text-lg text-text-secondary transition-colors group-hover:text-text-primary'>
+								↗
+							</span>
 						</a>
 					))}
-
-					<p className="text-sm text-text-secondary mt-6">
-						all other pages are not me.
-					</p>
 				</div>
-			</div>
+			</main>
 		</div>
 	);
 }

@@ -25,6 +25,16 @@ const nextConfig: NextConfig = {
 				destination: 'https://www.threads.net/@prodbyeagle',
 				permanent: true,
 			},
+			{
+				source: '/yt',
+				destination: 'https://youtube.com/@prodbyeagle',
+				permanent: true,
+			},
+			{
+				source: '/modrinth',
+				destination: 'https://modrinth.com/user/cow',
+				permanent: true,
+			},
 		];
 	},
 };
