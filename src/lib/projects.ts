@@ -109,12 +109,6 @@ export const PROJECTS: Project[] = [
 		githubUrl: 'https://github.com/prodbyeagle/cli',
 	},
 	{
-		title: '.eagle',
-		description: 'PowerShell toolkit that adds useful commands.',
-		tags: ['powershell'],
-		githubUrl: 'https://github.com/prodbyeagle/.eagle',
-	},
-	{
 		title: '.www',
 		description: 'Personal website.',
 		tags: ['next.js', 'typescript', 'tailwind'],
