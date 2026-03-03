@@ -93,17 +93,17 @@ export default function Home() {
 					subtitle='things i built or tinkered with'
 					count={PROJECTS.length}
 				/>
-				<div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+				<div>
 					{PROJECTS.map((project, i) => (
 						<motion.div
 							key={project.title}
-							initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
-							whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-							viewport={{ once: true, margin: '-30px' }}
+							initial={{ opacity: 0, y: 10 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: true, margin: '-20px' }}
 							transition={{
-								delay: (i % 2) * 0.09,
-								duration: 0.45,
-								ease: [0.4, 0, 0.2, 1],
+								delay: i * 0.05,
+								duration: 0.35,
+								ease: 'easeOut',
 							}}>
 							<ProjectCard project={project} />
 						</motion.div>
