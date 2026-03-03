@@ -1,7 +1,6 @@
-export { DottedBackground } from './eagle/dotted';
-export { ReactScan } from './eagle/react-scan';
-export { ThemeToggle } from './eagle/theme-toggle';
-export { BentoGrid } from './bento-grid';
-export { BentoGridItem } from './bento-grid-item';
+export { Tag } from './tag';
+export { SectionHeader } from './section-header';
 export { ProjectCard } from './project-card';
+export { SocialItem } from './social-item';
 export { WordReveal } from './word-reveal';
+export { ReactScan } from './eagle/react-scan';

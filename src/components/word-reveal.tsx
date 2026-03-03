@@ -1,99 +1,62 @@
-import * as motion from 'motion/react-client';
-import type { HTMLAttributes } from 'react';
+'use client';
 
-import { cn } from '@/lib/utils';
+import { motion } from 'motion/react';
 
-type Position = 'top' | 'bottom' | 'left' | 'right';
-
-interface WordRevealProps extends HTMLAttributes<HTMLSpanElement> {
+interface WordRevealProps {
 	text: string;
-	delay?: number;
-	duration?: number;
 	speed?: number;
-	position?: Position;
+	duration?: number;
+	position?: 'top' | 'bottom' | 'left' | 'right';
 	letter?: boolean;
+	className?: string;
+	onMouseEnter?: () => void;
+	onMouseLeave?: () => void;
 }
+
+const positionOffset = {
+	top: { y: -10 },
+	bottom: { y: 10 },
+	left: { x: -10 },
+	right: { x: 10 },
+};
 
 export function WordReveal({
 	text,
-	delay = 0,
 	speed = 0.2,
-	duration = 0.8,
-	position = 'top',
+	duration = 0.7,
+	position = 'bottom',
 	letter = false,
-	...props
+	className,
+	onMouseEnter,
+	onMouseLeave,
 }: WordRevealProps) {
-	const getInitialOffset = () => {
-		switch (position) {
-			case 'bottom':
-				return { y: -15 };
-			case 'left':
-				return { x: 15 };
-			case 'right':
-				return { x: -15 };
-			case 'top':
-			default:
-				return { y: 15 };
-		}
-	};
-
-	if (letter) {
-		const letters = text.split('');
-
-		return (
-			<span className={cn('inline-block overflow-hidden')} {...props}>
-				{letters.map((letterChar, i) => (
-					<motion.span
-						key={`${letterChar}-${i}`}
-						className='inline-block'
-						initial={{
-							opacity: 0,
-							...getInitialOffset(),
-							filter: 'blur(5px)',
-						}}
-						animate={{
-							opacity: 1,
-							x: 0,
-							y: 0,
-							filter: 'blur(0px)',
-						}}
-						transition={{
-							duration,
-							delay: delay + i * speed,
-							ease: [0.4, 0, 0.2, 1],
-						}}>
-						{letterChar === ' ' ? '\u00A0' : letterChar}
-					</motion.span>
-				))}
-			</span>
-		);
-	}
-
-	const words = text.split(' ');
+	const tokens = letter ? text.split('') : text.split(' ');
+	const initial = positionOffset[position];
 
 	return (
-		<span className={cn('inline-block overflow-hidden')} {...props}>
-			{words.map((word, i) => (
+		<span
+			className={className}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+			aria-label={text}>
+			{tokens.map((token, i) => (
 				<motion.span
-					key={`${word}-${i}`}
-					className='inline-block pr-1'
-					initial={{
-						opacity: 0,
-						...getInitialOffset(),
-						filter: 'blur(5px)',
-					}}
-					animate={{
-						opacity: 1,
-						x: 0,
-						y: 0,
-						filter: 'blur(0px)',
-					}}
+					key={i}
+					initial={{ opacity: 0, filter: 'blur(5px)', ...initial }}
+					animate={{ opacity: 1, filter: 'blur(0px)', x: 0, y: 0 }}
 					transition={{
+						delay: i * speed,
 						duration,
-						delay: delay + i * speed,
 						ease: [0.4, 0, 0.2, 1],
-					}}>
-					{word}
+					}}
+					style={{ display: 'inline-block' }}>
+					{letter
+						? token === ' '
+							? '\u00A0'
+							: token
+						: i < tokens.length - 1
+							? token + '\u00A0'
+							: token}
 				</motion.span>
 			))}
 		</span>

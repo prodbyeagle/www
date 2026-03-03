@@ -1,17 +1,14 @@
 import { type Metadata } from 'next';
-import { ThemeProvider } from 'next-themes';
-import { Geist_Mono } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
 import './globals.css';
 
-import { DottedBackground } from '@/components/eagle/dotted';
 import { ReactScan } from '@/components/eagle/react-scan';
-import { ThemeToggle } from '@/components/eagle/theme-toggle';
 
 export const metadata: Metadata = {
 	title: '@prodbyeagle',
 	description:
-		'a passionate developer building performant, accessible, and modern web experiences.',
+		'a hobby developer and music producer passionate about crafting fast, accessible web experiences and modern tools.',
 	icons: {
 		icon: {
 			url: 'https://cdn.discordapp.com/emojis/1385016033831555233.gif',
@@ -22,7 +19,7 @@ export const metadata: Metadata = {
 	openGraph: {
 		title: 'prodbyeagle',
 		description:
-			'a passionate developer building performant, accessible, and modern web experiences.',
+			'a hobby developer and music producer passionate about crafting fast, accessible web experiences and modern tools.',
 		url: 'https://prodbyeagle.dev',
 		siteName: 'prodbyeagle',
 		locale: 'en_US',
@@ -32,13 +29,13 @@ export const metadata: Metadata = {
 		card: 'summary',
 		title: 'prodbyeagle',
 		description:
-			'a passionate developer building performant, accessible, and modern web experiences.',
+			'a hobby developer and music producer passionate about crafting fast, accessible web experiences and modern tools.',
 		creator: 'prodbyeagle',
 	},
 };
 
-const geistMono = Geist_Mono({
-	variable: '--font-geist-mono',
+const inter = Inter({
+	variable: '--font-inter',
 	subsets: ['latin'],
 });
 
@@ -48,31 +45,11 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='en' suppressHydrationWarning>
+		<html lang='en'>
 			<body
-				className={`${geistMono.variable} antialiased font-mono tracking-tight cursor-default select-none relative`}>
-				<ThemeProvider
-					attribute='class'
-					defaultTheme='system'
-					enableSystem>
-					<div className='sticky top-4 z-50 w-full px-4 flex justify-end pointer-events-none'>
-						<div className='pointer-events-auto'>
-							<ThemeToggle />
-						</div>
-					</div>
-
-					<div className='fixed inset-0 -z-10'>
-						<DottedBackground
-							dotColor='var(--ring)'
-							spacing={28}
-							dotSize={2}
-						/>
-					</div>
-
-					<div className='container mx-auto relative z-0'>
-						{children}
-					</div>
-				</ThemeProvider>
+				className={`${inter.variable} font-sans antialiased cursor-default select-none`}
+				style={{ letterSpacing: '-0.15px' }}>
+				<div className='max-w-2xl mx-auto px-6 py-16'>{children}</div>
 				<ReactScan />
 			</body>
 		</html>
