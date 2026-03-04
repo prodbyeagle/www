@@ -1,12 +1,9 @@
 import { type Metadata } from 'next';
-import { ThemeProvider } from 'next-themes';
-import { Geist_Mono } from 'next/font/google';
+import { Outfit, Syne } from 'next/font/google';
 
 import './globals.css';
 
-import { DottedBackground } from '@/components/eagle/dotted';
 import { ReactScan } from '@/components/eagle/react-scan';
-import { ThemeToggle } from '@/components/eagle/theme-toggle';
 
 export const metadata: Metadata = {
 	title: '@prodbyeagle',
@@ -37,9 +34,16 @@ export const metadata: Metadata = {
 	},
 };
 
-const geistMono = Geist_Mono({
-	variable: '--font-geist-mono',
+const syne = Syne({
+	variable: '--font-syne',
 	subsets: ['latin'],
+	weight: ['400', '700', '800'],
+});
+
+const outfit = Outfit({
+	variable: '--font-outfit',
+	subsets: ['latin'],
+	weight: ['300', '400', '500', '600'],
 });
 
 export default function RootLayout({
@@ -48,31 +52,11 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='en' suppressHydrationWarning>
+		<html lang='en'>
 			<body
-				className={`${geistMono.variable} antialiased font-mono tracking-tight cursor-default select-none relative`}>
-				<ThemeProvider
-					attribute='class'
-					defaultTheme='system'
-					enableSystem>
-					<div className='sticky top-4 z-50 w-full px-4 flex justify-end pointer-events-none'>
-						<div className='pointer-events-auto'>
-							<ThemeToggle />
-						</div>
-					</div>
-
-					<div className='fixed inset-0 -z-10'>
-						<DottedBackground
-							dotColor='var(--ring)'
-							spacing={28}
-							dotSize={2}
-						/>
-					</div>
-
-					<div className='container mx-auto relative z-0'>
-						{children}
-					</div>
-				</ThemeProvider>
+				className={`${syne.variable} ${outfit.variable} antialiased cursor-default select-none`}
+				style={{ fontFamily: 'var(--font-outfit)' }}>
+				{children}
 				<ReactScan />
 			</body>
 		</html>

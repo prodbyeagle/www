@@ -109,9 +109,9 @@ export const PROJECTS: Project[] = [
 		githubUrl: 'https://github.com/prodbyeagle/cli',
 	},
 	{
-		title: '.www',
+		title: 'www',
 		description: 'Personal website.',
 		tags: ['next.js', 'typescript', 'tailwind'],
-		githubUrl: 'https://github.com/prodbyeagle/.www',
+		githubUrl: 'https://github.com/prodbyeagle/www',
 	},
 ];
