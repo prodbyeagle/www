@@ -17,6 +17,24 @@ export const PROJECTS: Project[] = [
 		description: 'minecraft mod that adds many new ores.',
 		tags: ['java'],
 	},
+	{
+		title: 'mini-players',
+		description: 'paper plugin that lets players shrink and restore their size.',
+		tags: ['kotlin'],
+		githubUrl: 'https://github.com/meowlounge/mini-players',
+	},
+	{
+		title: 'remove-darkness-plugin',
+		description: 'paper plugin that toggles the darkness visual effect.',
+		tags: ['kotlin'],
+		githubUrl: 'https://github.com/meowlounge/remove-darkness-plugin',
+	},
+	{
+		title: 'just-show-me-criteria',
+		description: 'minecraft plugin for browsing scoreboard and advancement criteria.',
+		tags: ['kotlin'],
+		githubUrl: 'https://github.com/meowlounge/just-show-me-criteria',
+	},
 
 	// {
 	// 	title: 'color',
@@ -66,6 +84,12 @@ export const PROJECTS: Project[] = [
 		githubUrl: 'https://github.com/prodbyeagle/next-template',
 	},
 	{
+		title: 'typescript-template',
+		description: 'minimal typescript starter template using bun.',
+		tags: ['typescript'],
+		githubUrl: 'https://github.com/meowlounge/typescript-template',
+	},
+	{
 		title: 'discord.js-template',
 		description:
 			'lightweight discord.js starter with common libraries and configs.',
@@ -73,9 +97,15 @@ export const PROJECTS: Project[] = [
 		githubUrl: 'https://github.com/meowlounge/discord-template',
 	},
 	{
+		title: 'psychiatrie-rules',
+		description: 'rules page for a community discord server.',
+		tags: ['typescript'],
+		githubUrl: 'https://github.com/meowlounge/psychiatrie-rules',
+	},
+	{
 		title: 'cli',
-		description: 'PowerShell toolkit that adds useful commands.',
-		tags: ['powershell'],
+		description: 'small command-line utility written in rust.',
+		tags: ['rust'],
 		githubUrl: 'https://github.com/prodbyeagle/cli',
 	},
 	{
