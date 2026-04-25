@@ -3,6 +3,8 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { useState } from 'react';
 
+import { WordReveal } from '@/components/word-reveal';
+
 const PRIMARY = 'noah';
 const ALT = 'prodbyeagle';
 
@@ -19,27 +21,21 @@ export function NameSwap() {
 				<motion.span
 					key={text}
 					className='inline-block whitespace-nowrap'
-					initial={{ opacity: 0, y: 6, filter: 'blur(4px)' }}
-					animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-					exit={{ opacity: 0, y: -6, filter: 'blur(4px)' }}
+					initial={{ opacity: 1 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0, filter: 'blur(4px)' }}
 					transition={{
-						duration: 0.45,
+						duration: 0.25,
 						ease: [0.4, 0, 0.2, 1],
 					}}>
-					{text.split('').map((char, i) => (
-						<motion.span
-							key={`${char}-${i}`}
-							className='inline-block'
-							initial={{ opacity: 0, y: 8 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{
-								duration: 0.35,
-								delay: i * 0.025,
-								ease: [0.4, 0, 0.2, 1],
-							}}>
-							{char}
-						</motion.span>
-					))}
+					<WordReveal
+						text={text}
+						letter
+						delay={0.18}
+						speed={0.05}
+						duration={0.7}
+						position='bottom'
+					/>
 				</motion.span>
 			</AnimatePresence>
 		</span>

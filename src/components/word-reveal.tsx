@@ -1,11 +1,12 @@
-import * as motion from 'motion/react-client';
-import type { HTMLAttributes } from 'react';
+'use client';
+
+import { motion, type HTMLMotionProps, type Variants } from 'motion/react';
 
 import { cn } from '@/lib/utils';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
-interface WordRevealProps extends HTMLAttributes<HTMLSpanElement> {
+interface WordRevealProps extends Omit<HTMLMotionProps<'span'>, 'children'> {
 	text: string;
 	delay?: number;
 	duration?: number;
@@ -14,88 +15,77 @@ interface WordRevealProps extends HTMLAttributes<HTMLSpanElement> {
 	letter?: boolean;
 }
 
+const OFFSET: Record<Position, { x: number; y: number }> = {
+	top: { x: 0, y: 18 },
+	bottom: { x: 0, y: -18 },
+	left: { x: 18, y: 0 },
+	right: { x: -18, y: 0 },
+};
+
 export function WordReveal({
 	text,
 	delay = 0,
-	speed = 0.2,
-	duration = 0.8,
+	speed = 0.08,
+	duration = 1.1,
 	position = 'top',
 	letter = false,
+	className,
 	...props
 }: WordRevealProps) {
-	const getInitialOffset = () => {
-		switch (position) {
-			case 'bottom':
-				return { y: -15 };
-			case 'left':
-				return { x: 15 };
-			case 'right':
-				return { x: -15 };
-			case 'top':
-			default:
-				return { y: 15 };
-		}
+	const offset = OFFSET[position];
+	const tokens = letter ? text.split('') : text.split(' ');
+
+	const container: Variants = {
+		hidden: {},
+		show: {
+			transition: {
+				delayChildren: delay,
+				staggerChildren: speed,
+			},
+		},
 	};
 
-	if (letter) {
-		const letters = text.split('');
-
-		return (
-			<span className={cn('inline-block overflow-hidden')} {...props}>
-				{letters.map((letterChar, i) => (
-					<motion.span
-						key={`${letterChar}-${i}`}
-						className='inline-block'
-						initial={{
-							opacity: 0,
-							...getInitialOffset(),
-							filter: 'blur(5px)',
-						}}
-						animate={{
-							opacity: 1,
-							x: 0,
-							y: 0,
-							filter: 'blur(0px)',
-						}}
-						transition={{
-							duration,
-							delay: delay + i * speed,
-							ease: [0.4, 0, 0.2, 1],
-						}}>
-						{letterChar === ' ' ? '\u00A0' : letterChar}
-					</motion.span>
-				))}
-			</span>
-		);
-	}
-
-	const words = text.split(' ');
+	const child: Variants = {
+		hidden: {
+			opacity: 0,
+			x: offset.x,
+			y: offset.y,
+			scale: 0.92,
+			filter: 'blur(8px)',
+		},
+		show: {
+			opacity: 1,
+			x: 0,
+			y: 0,
+			scale: 1,
+			filter: 'blur(0px)',
+			transition: {
+				duration,
+				ease: [0.22, 1, 0.36, 1],
+				opacity: { duration: duration * 0.6 },
+				filter: { duration: duration * 0.5 },
+			},
+		},
+	};
 
 	return (
-		<span className={cn('inline-block overflow-hidden')} {...props}>
-			{words.map((word, i) => (
+		<motion.span
+			variants={container}
+			initial='hidden'
+			animate='show'
+			className={cn('inline-block', className)}
+			{...props}>
+			{tokens.map((token, i) => (
 				<motion.span
-					key={`${word}-${i}`}
-					className='inline-block pr-1'
-					initial={{
-						opacity: 0,
-						...getInitialOffset(),
-						filter: 'blur(5px)',
-					}}
-					animate={{
-						opacity: 1,
-						x: 0,
-						y: 0,
-						filter: 'blur(0px)',
-					}}
-					transition={{
-						duration,
-						delay: delay + i * speed,
-						ease: [0.4, 0, 0.2, 1],
-					}}>
-					{word}
+					key={`${token}-${i}`}
+					variants={child}
+					className={cn(
+						'inline-block will-change-transform',
+						!letter && 'pr-1'
+					)}>
+					{letter && token === ' ' ? '\u00A0' : token}
 				</motion.span>
 			))}
-		</span>
+		</motion.span>
 	);
 }
