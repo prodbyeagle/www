@@ -96,7 +96,7 @@ export default function Home() {
 											</AnimatedLink>
 										</HoverCard>
 										<span className='text-sm text-text-tertiary sm:text-right'>
-											{project.tags.join(' · ')}
+											{project.languages?.join(' · ')}
 										</span>
 									</div>
 								</motion.li>
