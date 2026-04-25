@@ -1,5 +1,5 @@
 import { type Metadata } from 'next';
-import { Outfit, Syne } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
 import './globals.css';
 
@@ -34,16 +34,9 @@ export const metadata: Metadata = {
 	},
 };
 
-const syne = Syne({
-	variable: '--font-syne',
+const inter = Inter({
+	variable: '--font-inter',
 	subsets: ['latin'],
-	weight: ['400', '700', '800'],
-});
-
-const outfit = Outfit({
-	variable: '--font-outfit',
-	subsets: ['latin'],
-	weight: ['300', '400', '500', '600'],
 });
 
 export default function RootLayout({
@@ -54,8 +47,7 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body
-				className={`${syne.variable} ${outfit.variable} antialiased cursor-default select-none`}
-				style={{ fontFamily: 'var(--font-outfit)' }}>
+				className={`${inter.variable} antialiased font-sans font-medium tracking-tight bg-background text-text`}>
 				{children}
 				<ReactScan />
 			</body>
