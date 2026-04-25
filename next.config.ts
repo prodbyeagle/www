@@ -11,6 +11,13 @@ const nextConfig: NextConfig = {
 				pathname: '**',
 				search: '',
 			},
+			{
+				protocol: 'https',
+				hostname: 'github.com',
+				port: '',
+				pathname: '**',
+				search: '',
+			},
 		],
 	},
 	async redirects() {
@@ -31,8 +38,8 @@ const nextConfig: NextConfig = {
 				permanent: true,
 			},
 			{
-				source: '/modrinth',
-				destination: 'https://modrinth.com/user/cow',
+				source: '/instagram',
+				destination: 'https://instagram.com/prodbyeagle',
 				permanent: true,
 			},
 		];
