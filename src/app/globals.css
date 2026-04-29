@@ -7,7 +7,7 @@
 	--color-ring: oklch(0.7 0.015 286.067);
 	--color-text: oklch(0.18 0.008 85);
 	--color-text-secondary: oklch(0.45 0.012 85);
-	--color-text-tertiary: oklch(0.62 0.012 85);
+	--color-text-tertiary: oklch(0.5 0.012 85);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,7 +17,7 @@
 		--color-ring: oklch(0.55 0.015 286.067);
 		--color-text: oklch(0.95 0.008 85);
 		--color-text-secondary: oklch(0.72 0.012 85);
-		--color-text-tertiary: oklch(0.55 0.012 85);
+		--color-text-tertiary: oklch(0.68 0.012 85);
 	}
 }
 

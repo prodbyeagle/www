@@ -26,7 +26,7 @@ export function AnimatedLink({
 			{...props}
 			{...externalProps}
 			className={cn(
-				'group relative inline-block text-text transition-colors duration-300 hover:text-text/70',
+				'group relative inline-block rounded-sm text-text transition-colors duration-300 hover:text-text/70 focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2',
 				className
 			)}>
 			<span className='relative inline-block'>

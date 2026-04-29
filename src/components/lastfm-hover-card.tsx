@@ -45,27 +45,27 @@ function TrackContent({
 }) {
 	if (loading && !track) {
 		return (
-			<span className='block text-text-tertiary'>
+			<span aria-live='polite' className='block text-text-tertiary'>
 				loading…
 			</span>
 		);
 	}
 	if (error) {
 		return (
-			<span className='block text-text-tertiary'>
+			<span aria-live='polite' className='block text-text-tertiary'>
 				couldn&apos;t reach last.fm
 			</span>
 		);
 	}
 	if (!track) {
 		return (
-			<span className='block text-text-tertiary'>
+			<span aria-live='polite' className='block text-text-tertiary'>
 				nothing playing yet
 			</span>
 		);
 	}
 	return (
-		<span className='flex items-center gap-3'>
+		<span aria-live='polite' className='flex items-center gap-3'>
 			{track.image ? (
 				<span className='relative block h-12 w-12 shrink-0 overflow-hidden rounded-sm border border-text-tertiary/15'>
 					<Image
