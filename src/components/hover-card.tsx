@@ -18,8 +18,8 @@ interface HoverCardProps {
 	content: ReactNode;
 	image?: string;
 	imageAlt?: string;
-	imageRounded?: 'none' | 'sm' | 'md' | 'lg' | 'full';
-	icon?: ReactNode;
+	imageRounded?: 'none' | 'sm' | 'full';
+	imageUnoptimized?: boolean;
 	className?: string;
 	underline?: boolean;
 }
@@ -27,8 +27,6 @@ interface HoverCardProps {
 const ROUNDED_MAP = {
 	none: '',
 	sm: 'rounded-sm',
-	md: 'rounded-md',
-	lg: 'rounded-lg',
 	full: 'rounded-full',
 } as const;
 
@@ -40,7 +38,7 @@ export function HoverCard({
 	image,
 	imageAlt = '',
 	imageRounded = 'none',
-	icon,
+	imageUnoptimized = false,
 	className,
 	underline = true,
 }: HoverCardProps) {
@@ -74,28 +72,25 @@ export function HoverCard({
 		<span
 			ref={triggerRef}
 			className={cn(
-				'relative inline cursor-default align-baseline',
+				'relative inline-block whitespace-nowrap cursor-default align-baseline',
 				className
 			)}
 			onMouseEnter={() => setOpen(true)}
 			onMouseLeave={handleLeave}
 			onMouseMove={handleMove}
 			aria-describedby={open ? id : undefined}>
-			{icon ? (
-				<span className='mr-1.5 inline-flex h-[1em] w-[1em] translate-y-[0.15em] items-center justify-center text-text'>
-					{icon}
-				</span>
-			) : image ? (
+			{image ? (
 				<span
 					className={cn(
-						'relative mr-1.5 inline-block h-[1em] w-[1em] translate-y-[0.15em] overflow-hidden',
+						'relative mx-1 inline-block h-[1em] w-[1em] translate-y-[0.15em] overflow-hidden',
 						ROUNDED_MAP[imageRounded]
 					)}>
 					<Image
 						src={image}
 						alt={imageAlt}
 						fill
-						unoptimized
+						preload
+						unoptimized={imageUnoptimized}
 						sizes='1em'
 						className='object-cover'
 					/>
