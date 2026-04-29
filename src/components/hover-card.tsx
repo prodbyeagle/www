@@ -4,12 +4,13 @@ import {
 	AnimatePresence,
 	motion,
 	useMotionValue,
+	useReducedMotion,
 	useSpring,
 	useTransform,
 } from 'motion/react';
 import Image from 'next/image';
 import { useId, useRef, useState } from 'react';
-import type { MouseEvent, ReactNode } from 'react';
+import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -45,6 +46,7 @@ export function HoverCard({
 	const [open, setOpen] = useState(false);
 	const triggerRef = useRef<HTMLSpanElement>(null);
 	const id = useId();
+	const reduceMotion = useReducedMotion();
 
 	const x = useMotionValue(0);
 	const y = useMotionValue(0);
@@ -54,6 +56,7 @@ export function HoverCard({
 	const rotate = useTransform(sx, [-30, 30], [-4, 4]);
 
 	function handleMove(e: MouseEvent<HTMLSpanElement>) {
+		if (reduceMotion) return;
 		const rect = triggerRef.current?.getBoundingClientRect();
 		if (!rect) return;
 		const cx = rect.left + rect.width / 2;
@@ -68,16 +71,27 @@ export function HoverCard({
 		y.set(0);
 	}
 
+	function handleKeyDown(e: KeyboardEvent<HTMLSpanElement>) {
+		if (e.key === 'Escape' && open) {
+			setOpen(false);
+			triggerRef.current?.blur();
+		}
+	}
+
 	return (
 		<span
 			ref={triggerRef}
+			tabIndex={0}
 			className={cn(
-				'relative inline-block whitespace-nowrap cursor-default align-baseline',
+				'relative inline-block whitespace-nowrap cursor-default align-baseline rounded-sm focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2',
 				className
 			)}
 			onMouseEnter={() => setOpen(true)}
 			onMouseLeave={handleLeave}
 			onMouseMove={handleMove}
+			onFocus={() => setOpen(true)}
+			onBlur={handleLeave}
+			onKeyDown={handleKeyDown}
 			aria-describedby={open ? id : undefined}>
 			{image ? (
 				<span
@@ -100,7 +114,7 @@ export function HoverCard({
 				className={cn(
 					'transition-colors duration-300',
 					underline &&
-						'underline decoration-text-tertiary/40 decoration-dotted underline-offset-4 hover:decoration-text-tertiary/80'
+						'underline decoration-text-tertiary/70 decoration-dotted underline-offset-4 hover:decoration-text-tertiary'
 				)}>
 				{children}
 			</span>
@@ -110,12 +124,26 @@ export function HoverCard({
 					<motion.span
 						id={id}
 						role='tooltip'
-						style={{ x: sx, y: sy, rotate }}
-						initial={{ opacity: 0, y: 4, scale: 0.96 }}
-						animate={{ opacity: 1, y: 0, scale: 1 }}
-						exit={{ opacity: 0, y: 4, scale: 0.96 }}
+						style={
+							reduceMotion ? undefined : { x: sx, y: sy, rotate }
+						}
+						initial={
+							reduceMotion
+								? { opacity: 0 }
+								: { opacity: 0, y: 4, scale: 0.96 }
+						}
+						animate={
+							reduceMotion
+								? { opacity: 1 }
+								: { opacity: 1, y: 0, scale: 1 }
+						}
+						exit={
+							reduceMotion
+								? { opacity: 0 }
+								: { opacity: 0, y: 4, scale: 0.96 }
+						}
 						transition={{
-							duration: 0.25,
+							duration: reduceMotion ? 0.1 : 0.25,
 							ease: [0.4, 0, 0.2, 1],
 						}}
 						className='pointer-events-none absolute left-1/2 top-full z-50 mt-3 -translate-x-1/2 whitespace-normal rounded-md border border-text-tertiary/15 bg-background px-3 py-2 text-xs font-normal text-text-secondary shadow-[0_8px_24px_-12px_rgba(0,0,0,0.18)]'>
