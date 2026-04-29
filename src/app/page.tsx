@@ -4,6 +4,7 @@ import * as motion from 'motion/react-client';
 
 import { AnimatedLink } from '@/components/animated-link';
 import { HoverCard } from '@/components/hover-card';
+import { LastFmHoverCard } from '@/components/lastfm-hover-card';
 import { NameSwap } from '@/components/name-swap';
 
 import { PROJECTS } from '@/lib/projects';
@@ -34,22 +35,25 @@ export default function Home() {
 							delay: 0.25,
 							ease: FADE_EASE,
 						}}>
-						hobby{' '}
+						hobby
 						<HoverCard
-							image='https://github.com/prodbyeagle.png'
+							image='https://github.com/prodbyeagle.png?size=40'
 							imageAlt=''
 							imageRounded='full'
 							content='just vibecoding tools for mac. mostly personal use.'>
 							developer
-						</HoverCard>{' '}
-						and{' '}
+						</HoverCard>
+						,
 						<HoverCard
 							image='https://cdn.discordapp.com/emojis/1385016033831555233.gif'
 							imageAlt=''
 							content='making all types of beats in my freetime.'>
 							music producer
-						</HoverCard>{' '}
-						crafting fast, accessible web experiences and modern tools.
+						</HoverCard>
+						, and listener of{' '}
+						<LastFmHoverCard>different music</LastFmHoverCard> —
+						crafting fast, accessible web experiences and modern
+						tools.
 					</motion.div>
 				</header>
 

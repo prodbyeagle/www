@@ -4,7 +4,7 @@ import { motion, type HTMLMotionProps, type Variants } from 'motion/react';
 
 import { cn } from '@/lib/utils';
 
-type Position = 'top' | 'bottom' | 'left' | 'right';
+type Position = 'top' | 'bottom';
 
 interface WordRevealProps extends Omit<HTMLMotionProps<'span'>, 'children'> {
 	text: string;
@@ -15,11 +15,9 @@ interface WordRevealProps extends Omit<HTMLMotionProps<'span'>, 'children'> {
 	letter?: boolean;
 }
 
-const OFFSET: Record<Position, { x: number; y: number }> = {
-	top: { x: 0, y: 18 },
-	bottom: { x: 0, y: -18 },
-	left: { x: 18, y: 0 },
-	right: { x: -18, y: 0 },
+const OFFSET: Record<Position, { y: number }> = {
+	top: { y: 18 },
+	bottom: { y: -18 },
 };
 
 export function WordReveal({
@@ -48,14 +46,12 @@ export function WordReveal({
 	const child: Variants = {
 		hidden: {
 			opacity: 0,
-			x: offset.x,
 			y: offset.y,
 			scale: 0.92,
 			filter: 'blur(8px)',
 		},
 		show: {
 			opacity: 1,
-			x: 0,
 			y: 0,
 			scale: 1,
 			filter: 'blur(0px)',
