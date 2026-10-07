@@ -17,7 +17,7 @@ export default function Home() {
 	const year = new Date().getFullYear();
 
 	return (
-		<main className='flex min-h-svh w-full items-center justify-center px-6 py-12 text-center sm:px-10 sm:py-16'>
+		<main className='flex min-h-svh w-full items-center justify-center px-6 py-12 text-left sm:px-10 sm:py-16'>
 			<div className='mx-auto w-full max-w-lg'>
 				<header className='mb-10'>
 					<motion.h1
@@ -28,13 +28,13 @@ export default function Home() {
 						<NameSwap />
 					</motion.h1>
 
-					<div className='mx-auto mt-5 max-w-md space-y-5 break-words text-base leading-relaxed text-text-secondary'>
+					<div className='mt-5 max-w-md space-y-5 break-words text-base leading-relaxed text-text-secondary'>
 						<Intro paragraphs={ABOUT_PARAGRAPHS} />
 					</div>
 				</header>
 
 				<motion.footer
-					className='flex flex-col items-center gap-3 border-t border-text-tertiary/15 pt-5 text-sm text-text-tertiary'
+					className='flex flex-col items-start gap-3 border-t border-text-tertiary/15 pt-5 text-sm text-text-tertiary'
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{
@@ -43,7 +43,7 @@ export default function Home() {
 						ease: FADE_EASE,
 					}}>
 					<p>&copy; {year} noah. all rights reserved.</p>
-					<nav className='flex flex-wrap justify-center gap-x-5 gap-y-2'>
+					<nav className='flex flex-wrap justify-start gap-x-5 gap-y-2'>
 						<AnimatedLink
 							href='/github'
 							external
