@@ -16,7 +16,6 @@ const ABOUT_PARAGRAPHS = [
 
 export default function Home() {
 	const year = new Date().getFullYear();
-	const commitHash = process.env.NEXT_PUBLIC_COMMIT_SHA?.slice(0, 7);
 
 	return (
 		<main className='min-h-screen w-full px-6 py-20 sm:px-10 sm:py-28 md:px-16 lg:px-24'>
@@ -71,11 +70,6 @@ export default function Home() {
 							instagram
 						</AnimatedLink>
 					</nav>
-					{commitHash ? (
-						<p className='text-xs text-text-tertiary/70 sm:col-span-2 sm:justify-self-end'>
-							@{commitHash}
-						</p>
-					) : null}
 				</motion.footer>
 			</div>
 		</main>
