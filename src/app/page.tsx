@@ -9,18 +9,17 @@ import { NameSwap } from '@/components/name-swap';
 const FADE_EASE = [0.4, 0, 0.2, 1] as const;
 
 const ABOUT_PARAGRAPHS = [
-	'i like software that feels simple and does one thing well. most of what i build starts with a tiny annoyance, a curious idea, or something i wish my mac could do. then comes the fun part: figuring it out and getting the little details right.',
-	'music takes up the rest of the space. sometimes that means making a beat, moving samples around, or spending far too long on the drums. sometimes it just means putting on headphones and playing the same track again.',
-	'this is my little corner of the internet. a bit of code, a lot of music, and whatever catches my interest along the way. if you want to keep in touch, you can find me below.',
+	'i make small tools for my mac, usually to fix a tiny annoyance or see if an idea works. simple software, little details, mostly for myself.',
+	'the rest is music: making beats, getting lost in drums, or playing the same track again. this is where those two worlds meet.',
 ] as const;
 
 export default function Home() {
 	const year = new Date().getFullYear();
 
 	return (
-		<main className='min-h-screen w-full px-6 py-20 sm:px-10 sm:py-28 md:px-16 lg:px-24'>
-			<div className='mx-auto max-w-2xl'>
-				<header className='mb-16'>
+		<main className='flex min-h-svh w-full items-center justify-center px-6 py-12 text-center sm:px-10 sm:py-16'>
+			<div className='mx-auto w-full max-w-lg'>
+				<header className='mb-10'>
 					<motion.h1
 						className='text-2xl font-semibold text-text'
 						initial={{ opacity: 0, y: 8 }}
@@ -29,13 +28,13 @@ export default function Home() {
 						<NameSwap />
 					</motion.h1>
 
-					<div className='mt-4 max-w-lg space-y-6 break-words text-base leading-relaxed text-text-secondary'>
+					<div className='mx-auto mt-5 max-w-md space-y-5 break-words text-sm leading-relaxed text-text-secondary'>
 						<Intro paragraphs={ABOUT_PARAGRAPHS} />
 					</div>
 				</header>
 
 				<motion.footer
-					className='grid gap-4 border-t border-text-tertiary/15 pt-6 text-sm text-text-tertiary sm:grid-cols-[1fr_auto] sm:items-center'
+					className='flex flex-col items-center gap-3 border-t border-text-tertiary/15 pt-5 text-xs text-text-tertiary'
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{
@@ -44,29 +43,29 @@ export default function Home() {
 						ease: FADE_EASE,
 					}}>
 					<p>&copy; {year} noah. all rights reserved.</p>
-					<nav className='flex flex-wrap gap-x-5 gap-y-2'>
+					<nav className='flex flex-wrap justify-center gap-x-5 gap-y-2'>
 						<AnimatedLink
 							href='/github'
 							external
-							className='text-sm text-text-tertiary hover:text-text'>
+							className='text-xs text-text-tertiary hover:text-text'>
 							github
 						</AnimatedLink>
 						<AnimatedLink
 							href='/yt'
 							external
-							className='text-sm text-text-tertiary hover:text-text'>
+							className='text-xs text-text-tertiary hover:text-text'>
 							youtube
 						</AnimatedLink>
 						<AnimatedLink
 							href='/threads'
 							external
-							className='text-sm text-text-tertiary hover:text-text'>
+							className='text-xs text-text-tertiary hover:text-text'>
 							threads
 						</AnimatedLink>
 						<AnimatedLink
 							href='/instagram'
 							external
-							className='text-sm text-text-tertiary hover:text-text'>
+							className='text-xs text-text-tertiary hover:text-text'>
 							instagram
 						</AnimatedLink>
 					</nav>
