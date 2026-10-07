@@ -28,13 +28,13 @@ export default function Home() {
 						<NameSwap />
 					</motion.h1>
 
-					<div className='mx-auto mt-5 max-w-md space-y-5 break-words text-sm leading-relaxed text-text-secondary'>
+					<div className='mx-auto mt-5 max-w-md space-y-5 break-words text-base leading-relaxed text-text-secondary'>
 						<Intro paragraphs={ABOUT_PARAGRAPHS} />
 					</div>
 				</header>
 
 				<motion.footer
-					className='flex flex-col items-center gap-3 border-t border-text-tertiary/15 pt-5 text-xs text-text-tertiary'
+					className='flex flex-col items-center gap-3 border-t border-text-tertiary/15 pt-5 text-sm text-text-tertiary'
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{
@@ -47,25 +47,25 @@ export default function Home() {
 						<AnimatedLink
 							href='/github'
 							external
-							className='text-xs text-text-tertiary hover:text-text'>
+							className='text-sm text-text-tertiary hover:text-text'>
 							github
 						</AnimatedLink>
 						<AnimatedLink
 							href='/yt'
 							external
-							className='text-xs text-text-tertiary hover:text-text'>
+							className='text-sm text-text-tertiary hover:text-text'>
 							youtube
 						</AnimatedLink>
 						<AnimatedLink
 							href='/threads'
 							external
-							className='text-xs text-text-tertiary hover:text-text'>
+							className='text-sm text-text-tertiary hover:text-text'>
 							threads
 						</AnimatedLink>
 						<AnimatedLink
 							href='/instagram'
 							external
-							className='text-xs text-text-tertiary hover:text-text'>
+							className='text-sm text-text-tertiary hover:text-text'>
 							instagram
 						</AnimatedLink>
 					</nav>
