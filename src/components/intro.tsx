@@ -118,6 +118,10 @@ function renderAnimatedWords(text: string, wordIndex: { current: number }) {
 	});
 }
 
+export function AnimatedText({ children }: { children: string }) {
+	return <>{renderAnimatedWords(children, { current: 0 })}</>;
+}
+
 function renderSegments(
 	segments: IntroVariant,
 	devContent: string,

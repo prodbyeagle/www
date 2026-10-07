@@ -3,7 +3,7 @@
 import * as motion from 'motion/react-client';
 
 import { AnimatedLink } from '@/components/animated-link';
-import { Intro } from '@/components/intro';
+import { AnimatedText, Intro } from '@/components/intro';
 import { NameSwap } from '@/components/name-swap';
 
 const FADE_EASE = [0.4, 0, 0.2, 1] as const;
@@ -29,24 +29,31 @@ export default function Home() {
 							<Intro />
 						</p>
 						<p>
-							I like software that feels simple and does one thing
-							well. Most of what I build starts with a tiny
-							annoyance, a curious idea, or something I wish my
-							mac could do. Then comes the fun part: figuring it
-							out and getting the little details right.
+							<AnimatedText>
+								i like software that feels simple and does one
+								thing well. most of what i build starts with a
+								tiny annoyance, a curious idea, or something i
+								wish my mac could do. then comes the fun part:
+								figuring it out and getting the little details
+								right.
+							</AnimatedText>
 						</p>
 						<p>
-							Music takes up the rest of the space. Sometimes that
-							means making a beat, moving samples around, or
-							spending far too long on the drums. Sometimes it
-							just means putting on headphones and playing the
-							same track again.
+							<AnimatedText>
+								music takes up the rest of the space. sometimes
+								that means making a beat, moving samples around,
+								or spending far too long on the drums. sometimes
+								it just means putting on headphones and playing
+								the same track again.
+							</AnimatedText>
 						</p>
 						<p>
-							This is my little corner of the internet. A bit of
-							code, a lot of music, and whatever catches my
-							interest along the way. If you want to keep in
-							touch, you can find me below.
+							<AnimatedText>
+								this is my little corner of the internet. a bit
+								of code, a lot of music, and whatever catches my
+								interest along the way. if you want to keep in
+								touch, you can find me below.
+							</AnimatedText>
 						</p>
 					</div>
 				</header>
