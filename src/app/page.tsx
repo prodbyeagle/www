@@ -13,7 +13,7 @@ export default function Home() {
 	const commitHash = process.env.NEXT_PUBLIC_COMMIT_SHA?.slice(0, 7);
 
 	return (
-		<div className='min-h-screen w-full px-6 py-20 sm:px-10 sm:py-28 md:px-16 lg:px-24'>
+		<main className='min-h-screen w-full px-6 py-20 sm:px-10 sm:py-28 md:px-16 lg:px-24'>
 			<div className='mx-auto max-w-2xl'>
 				<header className='mb-16'>
 					<motion.h1
@@ -24,8 +24,30 @@ export default function Home() {
 						<NameSwap />
 					</motion.h1>
 
-					<div className='mt-4 max-w-lg break-words text-base leading-relaxed text-text-secondary'>
-						<Intro />
+					<div className='mt-4 max-w-lg space-y-6 break-words text-base leading-relaxed text-text-secondary'>
+						<p>
+							<Intro />
+						</p>
+						<p>
+							I like software that feels simple and does one thing
+							well. Most of what I build starts with a tiny
+							annoyance, a curious idea, or something I wish my
+							mac could do. Then comes the fun part: figuring it
+							out and getting the little details right.
+						</p>
+						<p>
+							Music takes up the rest of the space. Sometimes that
+							means making a beat, moving samples around, or
+							spending far too long on the drums. Sometimes it
+							just means putting on headphones and playing the
+							same track again.
+						</p>
+						<p>
+							This is my little corner of the internet. A bit of
+							code, a lot of music, and whatever catches my
+							interest along the way. If you want to keep in
+							touch, you can find me below.
+						</p>
 					</div>
 				</header>
 
@@ -72,6 +94,6 @@ export default function Home() {
 					) : null}
 				</motion.footer>
 			</div>
-		</div>
+		</main>
 	);
 }
