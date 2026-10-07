@@ -39,18 +39,14 @@
 	animation-delay: var(--reveal-delay);
 }
 
-.text-reveal-inline {
-	animation-name: text-reveal-opacity;
-}
-
 @keyframes text-reveal {
 	from {
 		opacity: 0;
-		transform: translateY(8px);
+		filter: blur(4px);
 	}
 	to {
 		opacity: 1;
-		transform: translateY(0);
+		filter: blur(0);
 	}
 }
 
@@ -66,7 +62,7 @@
 /* Keyboard navigation can expose a hover card before its scheduled reveal. */
 .reveal-paragraph:focus-within .text-reveal-word {
 	opacity: 1 !important;
-	transform: none !important;
+	filter: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

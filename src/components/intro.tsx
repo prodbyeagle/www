@@ -42,7 +42,7 @@ function useIntroVariant(key: string, max: number) {
 }
 
 const WORD_STAGGER = 0.03;
-const WORD_DURATION = 0.3;
+const WORD_DURATION = 0.5;
 const PARAGRAPH_GAP = 0.08;
 const INITIAL_DELAY = 0.2;
 
@@ -75,9 +75,7 @@ function Word({
 	return (
 		<span
 			className={
-				wrap
-					? 'text-reveal-word text-reveal-inline'
-					: 'text-reveal-word inline-block'
+				wrap ? 'text-reveal-word' : 'text-reveal-word inline-block'
 			}
 			style={
 				{
