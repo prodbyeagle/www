@@ -29,7 +29,6 @@ export const metadata: Metadata = {
 		'frontend',
 		'next.js',
 		'typescript',
-		'spyglasses',
 	],
 	category: 'technology',
 	alternates: {

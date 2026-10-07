@@ -3,13 +3,8 @@
 import * as motion from 'motion/react-client';
 
 import { AnimatedLink } from '@/components/animated-link';
-import { ChromaticText } from '@/components/chromatic-text';
-import { HoverCard } from '@/components/hover-card';
 import { Intro } from '@/components/intro';
 import { NameSwap } from '@/components/name-swap';
-
-import { PROJECTS } from '@/lib/projects';
-import { cn } from '@/lib/utils';
 
 const FADE_EASE = [0.4, 0, 0.2, 1] as const;
 
@@ -33,71 +28,6 @@ export default function Home() {
 						<Intro />
 					</div>
 				</header>
-
-				<motion.section
-					className='mb-16'
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{
-						duration: 0.5,
-						delay: 0.6,
-						ease: FADE_EASE,
-					}}>
-					<h2 className='mb-6 text-sm uppercase tracking-widest text-text-tertiary'>
-						selected work
-					</h2>
-
-					<ul className='divide-y divide-text-tertiary/15'>
-						{PROJECTS.map((project, i) => {
-							const href =
-								project.url ?? project.githubUrl ?? '#';
-							const isExternal = Boolean(
-								project.url ?? project.githubUrl
-							);
-							return (
-								<motion.li
-									key={project.title}
-									initial={{ opacity: 0, y: 10 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{
-										duration: 0.5,
-										delay: 0.7 + i * 0.06,
-										ease: FADE_EASE,
-									}}
-									className='py-4'>
-									<div className='flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-6'>
-										<div className='flex items-center gap-2'>
-											<HoverCard
-												underline={false}
-												content={project.description}>
-												<AnimatedLink
-													href={href}
-													external={isExternal}
-													className={cn(
-														'text-base',
-														project.isNew
-															? '!text-transparent hover:!text-transparent'
-															: 'text-text'
-													)}>
-													{project.isNew ? (
-														<ChromaticText>
-															{project.title}
-														</ChromaticText>
-													) : (
-														project.title
-													)}
-												</AnimatedLink>
-											</HoverCard>
-										</div>
-										<span className='text-sm text-text-tertiary sm:text-right'>
-											{project.languages?.join(' · ')}
-										</span>
-									</div>
-								</motion.li>
-							);
-						})}
-					</ul>
-				</motion.section>
 
 				<motion.footer
 					className='grid gap-4 border-t border-text-tertiary/15 pt-6 text-sm text-text-tertiary sm:grid-cols-[1fr_auto] sm:items-center'
