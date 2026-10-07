@@ -3,10 +3,16 @@
 import * as motion from 'motion/react-client';
 
 import { AnimatedLink } from '@/components/animated-link';
-import { AnimatedText, Intro } from '@/components/intro';
+import { Intro } from '@/components/intro';
 import { NameSwap } from '@/components/name-swap';
 
 const FADE_EASE = [0.4, 0, 0.2, 1] as const;
+
+const ABOUT_PARAGRAPHS = [
+	'i like software that feels simple and does one thing well. most of what i build starts with a tiny annoyance, a curious idea, or something i wish my mac could do. then comes the fun part: figuring it out and getting the little details right.',
+	'music takes up the rest of the space. sometimes that means making a beat, moving samples around, or spending far too long on the drums. sometimes it just means putting on headphones and playing the same track again.',
+	'this is my little corner of the internet. a bit of code, a lot of music, and whatever catches my interest along the way. if you want to keep in touch, you can find me below.',
+] as const;
 
 export default function Home() {
 	const year = new Date().getFullYear();
@@ -25,36 +31,7 @@ export default function Home() {
 					</motion.h1>
 
 					<div className='mt-4 max-w-lg space-y-6 break-words text-base leading-relaxed text-text-secondary'>
-						<p>
-							<Intro />
-						</p>
-						<p>
-							<AnimatedText>
-								i like software that feels simple and does one
-								thing well. most of what i build starts with a
-								tiny annoyance, a curious idea, or something i
-								wish my mac could do. then comes the fun part:
-								figuring it out and getting the little details
-								right.
-							</AnimatedText>
-						</p>
-						<p>
-							<AnimatedText>
-								music takes up the rest of the space. sometimes
-								that means making a beat, moving samples around,
-								or spending far too long on the drums. sometimes
-								it just means putting on headphones and playing
-								the same track again.
-							</AnimatedText>
-						</p>
-						<p>
-							<AnimatedText>
-								this is my little corner of the internet. a bit
-								of code, a lot of music, and whatever catches my
-								interest along the way. if you want to keep in
-								touch, you can find me below.
-							</AnimatedText>
-						</p>
+						<Intro paragraphs={ABOUT_PARAGRAPHS} />
 					</div>
 				</header>
 

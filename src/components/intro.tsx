@@ -1,8 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion, type Variants } from 'motion/react';
 import { useSyncExternalStore } from 'react';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
 import { HoverCard } from '@/components/hover-card';
 
@@ -42,36 +41,21 @@ function useIntroVariant(key: string, max: number) {
 	);
 }
 
-const WORD_REVEAL: Variants = {
-	hidden: {
-		opacity: 0.28,
-		scale: 0.985,
-		filter: 'blur(14px)',
-	},
-	show: (i: number) => ({
-		opacity: [0.28, 0.72, 1],
-		scale: [0.985, 1.01, 1],
-		filter: ['blur(14px)', 'blur(5px)', 'blur(0px)'],
-		transition: {
-			delay: 0.2 + i * 0.055,
-			duration: 0.95,
-			ease: [0.16, 1, 0.3, 1],
-			times: [0, 0.58, 1],
-		},
-	}),
-};
+const WORD_STAGGER = 0.03;
+const WORD_DURATION = 0.3;
+const PARAGRAPH_GAP = 0.08;
+const INITIAL_DELAY = 0.2;
 
-const WORD_REVEAL_REDUCED: Variants = {
-	hidden: { opacity: 0.65 },
-	show: (i: number) => ({
-		opacity: 1,
-		transition: {
-			delay: 0.2 + i * 0.035,
-			duration: 0.25,
-			ease: [0.4, 0, 0.2, 1],
-		},
-	}),
-};
+type RevealPosition = { current: number; delay: number };
+
+function nextParagraphDelay({ current, delay }: RevealPosition) {
+	return (
+		delay +
+		Math.max(0, current - 1) * WORD_STAGGER +
+		WORD_DURATION +
+		PARAGRAPH_GAP
+	);
+}
 
 function splitWords(text: string): string[] {
 	return text.match(/\S+/g) ?? [];
@@ -80,31 +64,33 @@ function splitWords(text: string): string[] {
 function Word({
 	children,
 	index,
+	delay,
 	wrap = false,
 }: {
 	children: ReactNode;
 	index: number;
+	delay: number;
 	wrap?: boolean;
 }) {
-	const reduceMotion = useReducedMotion();
-
 	return (
-		<motion.span
-			custom={index}
-			variants={reduceMotion ? WORD_REVEAL_REDUCED : WORD_REVEAL}
-			initial='hidden'
-			animate='show'
+		<span
 			className={
 				wrap
-					? 'inline will-change-[filter,opacity]'
-					: 'inline-block transform-gpu will-change-[filter,opacity,transform]'
+					? 'text-reveal-word text-reveal-inline'
+					: 'text-reveal-word inline-block'
+			}
+			style={
+				{
+					'--reveal-delay': `${delay + index * WORD_STAGGER}s`,
+					'--reveal-duration': `${WORD_DURATION}s`,
+				} as CSSProperties
 			}>
 			{children}
-		</motion.span>
+		</span>
 	);
 }
 
-function renderAnimatedWords(text: string, wordIndex: { current: number }) {
+function renderAnimatedWords(text: string, wordIndex: RevealPosition) {
 	const words = splitWords(text);
 
 	return words.map((word, i) => {
@@ -112,23 +98,20 @@ function renderAnimatedWords(text: string, wordIndex: { current: number }) {
 		return (
 			<span key={`${word}-${i}`}>
 				{i > 0 ? ' ' : null}
-				<Word index={current}>{word}</Word>
+				<Word index={current} delay={wordIndex.delay}>
+					{word}
+				</Word>
 			</span>
 		);
 	});
 }
 
-export function AnimatedText({ children }: { children: string }) {
-	return <>{renderAnimatedWords(children, { current: 0 })}</>;
-}
-
 function renderSegments(
 	segments: IntroVariant,
 	devContent: string,
-	musicContent: string
+	musicContent: string,
+	wordIndex: RevealPosition
 ) {
-	const wordIndex = { current: 0 };
-
 	return segments.map((seg, i) => {
 		switch (seg.type) {
 			case 'text': {
@@ -155,7 +138,7 @@ function renderSegments(
 						imageRounded='full'
 						content={devContent}
 						triggerWrapper={(trigger) => (
-							<Word index={current} wrap>
+							<Word index={current} delay={wordIndex.delay} wrap>
 								{trigger}
 							</Word>
 						)}>
@@ -174,7 +157,7 @@ function renderSegments(
 						imageAlt=''
 						content={musicContent}
 						triggerWrapper={(trigger) => (
-							<Word index={current} wrap>
+							<Word index={current} delay={wordIndex.delay} wrap>
 								{trigger}
 							</Word>
 						)}>
@@ -186,7 +169,7 @@ function renderSegments(
 	});
 }
 
-export function Intro() {
+export function Intro({ paragraphs = [] }: { paragraphs?: readonly string[] }) {
 	// Render the first variant on the server / first client paint to avoid
 	// hydration mismatch, then swap to the picked one once mounted.
 	const a = useIntroVariant('intro:a', SLOT_A.length);
@@ -197,13 +180,29 @@ export function Intro() {
 	const devContent = DEV_CONTENT[dev];
 	const musicContent = MUSIC_CONTENT[music];
 
+	const introPosition = { current: 0, delay: INITIAL_DELAY };
+	const introduction = renderSegments(
+		[...SLOT_A[a], ...SLOT_B[b]],
+		devContent,
+		musicContent,
+		introPosition
+	);
+	let delay = nextParagraphDelay(introPosition);
+
 	return (
 		<>
-			{renderSegments(
-				[...SLOT_A[a], ...SLOT_B[b]],
-				devContent,
-				musicContent
-			)}
+			<p className='reveal-paragraph'>{introduction}</p>
+			{paragraphs.map((text) => {
+				const position = { current: 0, delay };
+				const content = renderAnimatedWords(text, position);
+				delay = nextParagraphDelay(position);
+
+				return (
+					<p key={text} className='reveal-paragraph'>
+						{content}
+					</p>
+				);
+			})}
 		</>
 	);
 }
