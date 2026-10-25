@@ -1,4 +1,4 @@
-import * as motion from 'motion/react-client';
+import * as m from 'motion/react-m';
 import type { Metadata } from 'next';
 
 import { AnimatedLink } from '@/components/animated-link';
@@ -32,12 +32,12 @@ export const metadata: Metadata = {
 export default function PsychiatrieSupportPage() {
 	return (
 		<main className='min-h-screen w-full px-6 py-20 sm:px-10 sm:py-28 md:px-16 lg:px-24'>
-			<motion.article
+			<m.article
 				className='mx-auto max-w-2xl'
 				initial={{ opacity: 0, y: 8 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.6, ease: FADE_EASE }}>
-				<motion.header
+				<m.header
 					className='mb-16'
 					initial={{ opacity: 0, y: 8 }}
 					animate={{ opacity: 1, y: 0 }}
@@ -60,9 +60,9 @@ export default function PsychiatrieSupportPage() {
 						</AnimatedLink>
 						.
 					</p>
-				</motion.header>
+				</m.header>
 
-				<motion.section
+				<m.section
 					className='mb-16'
 					initial={{ opacity: 0, y: 10 }}
 					animate={{ opacity: 1, y: 0 }}
@@ -86,9 +86,9 @@ export default function PsychiatrieSupportPage() {
 							Kurze Beschreibung des Problems
 						</li>
 					</ul>
-				</motion.section>
+				</m.section>
 
-				<motion.aside
+				<m.aside
 					className='mb-16 border-l border-text-tertiary/30 pl-5'
 					initial={{ opacity: 0, y: 10 }}
 					animate={{ opacity: 1, y: 0 }}
@@ -104,9 +104,9 @@ export default function PsychiatrieSupportPage() {
 						Sende keine Passwörter oder sensiblen persönlichen Daten
 						per E-Mail.
 					</p>
-				</motion.aside>
+				</m.aside>
 
-				<motion.footer
+				<m.footer
 					className='flex flex-wrap gap-x-5 gap-y-3 border-t border-text-tertiary/15 pt-6'
 					initial={{ opacity: 0, y: 10 }}
 					animate={{ opacity: 1, y: 0 }}
@@ -125,8 +125,8 @@ export default function PsychiatrieSupportPage() {
 						className='text-sm text-text-tertiary'>
 						← Zurück zur Startseite
 					</AnimatedLink>
-				</motion.footer>
-			</motion.article>
+				</m.footer>
+			</m.article>
 		</main>
 	);
 }

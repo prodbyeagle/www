@@ -1,4 +1,4 @@
-import * as motion from 'motion/react-client';
+  import * as m from 'motion/react-m';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -76,7 +76,7 @@ const SECTIONS = [
 export default function PsychiatriePrivacyPolicyPage() {
 	return (
 		<main className='min-h-screen px-6 py-16 sm:px-10 sm:py-20 md:px-16 lg:px-24'>
-			<motion.article
+			<m.article
 				className='mx-auto max-w-2xl'
 				initial={{ opacity: 0, y: 8 }}
 				animate={{ opacity: 1, y: 0 }}
@@ -109,7 +109,7 @@ export default function PsychiatriePrivacyPolicyPage() {
 
 				<div className='divide-y divide-text-tertiary/15'>
 					{SECTIONS.map((section, i) => (
-						<motion.section
+						<m.section
 							key={section.title}
 							className='py-8'
 							initial={{ opacity: 0, y: 10 }}
@@ -126,7 +126,7 @@ export default function PsychiatriePrivacyPolicyPage() {
 								{section.items.map((item) => (
 									<li
 										key={item}
-										className='pl-5 [text-indent:-1.25rem]'>
+										className='pl-5 -indent-5'>
 										<span className='text-text-tertiary'>
 											-{' '}
 										</span>
@@ -134,10 +134,10 @@ export default function PsychiatriePrivacyPolicyPage() {
 									</li>
 								))}
 							</ul>
-						</motion.section>
+						</m.section>
 					))}
 				</div>
-			</motion.article>
+			</m.article>
 		</main>
 	);
 }
