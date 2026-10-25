@@ -1,6 +1,6 @@
 'use client';
 
-import * as motion from 'motion/react-client';
+import * as m from 'motion/react-m';
 
 import { AnimatedLink } from '@/components/animated-link';
 import { WordReveal } from '@/components/word-reveal';
@@ -11,13 +11,13 @@ export default function NotFound() {
 	return (
 		<div className='min-h-screen w-full px-6 py-20 sm:px-10 sm:py-28 md:px-16 lg:px-24'>
 			<div className='mx-auto max-w-2xl'>
-				<motion.h1
+				<m.h1
 					className='mb-4 text-2xl font-semibold text-text'
 					initial={{ opacity: 0, y: 8 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.6, ease: FADE_EASE }}>
 					404
-				</motion.h1>
+				</m.h1>
 
 				<div className='mb-8 max-w-lg text-base leading-relaxed text-text-secondary'>
 					<WordReveal
@@ -28,7 +28,7 @@ export default function NotFound() {
 					/>
 				</div>
 
-				<motion.div
+				<m.div
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{
@@ -41,7 +41,7 @@ export default function NotFound() {
 						className='text-base text-text'>
 						← home
 					</AnimatedLink>
-				</motion.div>
+				</m.div>
 			</div>
 		</div>
 	);

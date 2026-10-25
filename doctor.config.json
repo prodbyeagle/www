@@ -1,0 +1,7 @@
+{
+	"$schema": "https://react.doctor/schema/config.json",
+	"ignore": {
+		// Generated build output (Next.js, OpenNext/Cloudflare) — not source code.
+		"files": [".next/**", ".open-next/**", ".wrangler/**", "out/**"]
+	}
+}

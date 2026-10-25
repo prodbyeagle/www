@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, type HTMLMotionProps, type Variants } from 'motion/react';
+import { type HTMLMotionProps, type Variants } from 'motion/react';
+import * as m from 'motion/react-m';
 
 import { cn } from '@/lib/utils';
 
@@ -65,14 +66,14 @@ export function WordReveal({
 	};
 
 	return (
-		<motion.span
+		<m.span
 			variants={container}
 			initial='hidden'
 			animate='show'
 			className={cn('inline-block', className)}
 			{...props}>
 			{tokens.map((token, i) => (
-				<motion.span
+				<m.span
 					key={`${token}-${i}`}
 					variants={child}
 					className={cn(
@@ -80,8 +81,8 @@ export function WordReveal({
 						!letter && 'pr-1'
 					)}>
 					{letter && token === ' ' ? '\u00A0' : token}
-				</motion.span>
+				</m.span>
 			))}
-		</motion.span>
+		</m.span>
 	);
 }

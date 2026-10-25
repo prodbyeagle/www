@@ -2,12 +2,12 @@
 
 import {
 	AnimatePresence,
-	motion,
 	useMotionValue,
 	useReducedMotion,
 	useSpring,
 	useTransform,
 } from 'motion/react';
+import * as m from 'motion/react-m';
 import Image from 'next/image';
 import { useId, useRef, useState } from 'react';
 import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
@@ -129,7 +129,7 @@ export function HoverCard({
 
 			<AnimatePresence>
 				{open && (
-					<motion.span
+					<m.span
 						id={id}
 						role='tooltip'
 						style={
@@ -158,7 +158,7 @@ export function HoverCard({
 						<span className='block w-56 max-w-[70vw]'>
 							{content}
 						</span>
-					</motion.span>
+					</m.span>
 				)}
 			</AnimatePresence>
 		</span>
