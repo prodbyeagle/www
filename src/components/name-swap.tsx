@@ -1,6 +1,7 @@
 'use client';
 
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence } from 'motion/react';
+import * as m from 'motion/react-m';
 import { useState } from 'react';
 
 import { WordReveal } from '@/components/word-reveal';
@@ -18,7 +19,7 @@ export function NameSwap() {
 			onMouseEnter={() => setHovered(true)}
 			onMouseLeave={() => setHovered(false)}>
 			<AnimatePresence mode='wait' initial={false}>
-				<motion.span
+				<m.span
 					key={text}
 					className='inline-block whitespace-nowrap'
 					initial={{ opacity: 1 }}
@@ -36,7 +37,7 @@ export function NameSwap() {
 						duration={0.7}
 						position='bottom'
 					/>
-				</motion.span>
+				</m.span>
 			</AnimatePresence>
 		</span>
 	);

@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 
 import { ReactScan } from '@/components/eagle/react-scan';
+import { MotionProvider } from '@/components/motion-provider';
 
 const SITE_URL = 'https://prodbyeagle.dev';
 const SITE_NAME = 'prodbyeagle';
@@ -29,7 +30,6 @@ export const metadata: Metadata = {
 		'frontend',
 		'next.js',
 		'typescript',
-		'spyglasses',
 	],
 	category: 'technology',
 	alternates: {
@@ -90,7 +90,7 @@ export default function RootLayout({
 		<html lang='en'>
 			<body
 				className={`${inter.variable} antialiased font-sans font-medium tracking-tight bg-background text-text`}>
-				{children}
+				<MotionProvider>{children}</MotionProvider>
 				<ReactScan />
 			</body>
 		</html>

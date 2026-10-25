@@ -60,9 +60,9 @@ export default function OpengraphImage() {
 					color: '#7a6f5e',
 				}}>
 				<div style={{ display: 'flex', gap: 32 }}>
-					<span>spyglasses</span>
-					<span>cli</span>
-					<span>www</span>
+					<span>code</span>
+					<span>music</span>
+					<span>curiosity</span>
 				</div>
 				<div style={{ letterSpacing: '0.12em' }}>@prodbyeagle</div>
 			</div>

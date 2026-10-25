@@ -1,147 +1,102 @@
 'use client';
 
-import * as motion from 'motion/react-client';
+import { MotionConfig, useReducedMotion } from 'motion/react';
+import * as m from 'motion/react-m';
 
 import { AnimatedLink } from '@/components/animated-link';
-import { ChromaticText } from '@/components/chromatic-text';
-import { HoverCard } from '@/components/hover-card';
 import { Intro } from '@/components/intro';
 import { NameSwap } from '@/components/name-swap';
 
-import { PROJECTS } from '@/lib/projects';
-import { cn } from '@/lib/utils';
+const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 
-const FADE_EASE = [0.4, 0, 0.2, 1] as const;
+const ABOUT_PARAGRAPHS = [
+	'i make small tools for my mac, usually to fix a tiny annoyance or see if an idea works. simple software, little details, mostly for myself.',
+	'the rest is music: making beats, getting lost in drums, or playing the same track again. this is where those two worlds meet.',
+] as const;
 
 export default function Home() {
 	const year = new Date().getFullYear();
-	const commitHash = process.env.NEXT_PUBLIC_COMMIT_SHA?.slice(0, 7);
+	const reduceMotion = useReducedMotion();
+
+	const enterOffset = reduceMotion ? 0 : 12;
 
 	return (
-		<div className='min-h-screen w-full px-6 py-20 sm:px-10 sm:py-28 md:px-16 lg:px-24'>
-			<div className='mx-auto max-w-2xl'>
-				<header className='mb-16'>
-					<motion.h1
-						className='text-2xl font-semibold text-text'
-						initial={{ opacity: 0, y: 8 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, ease: FADE_EASE }}>
-						<NameSwap />
-					</motion.h1>
-
-					<div className='mt-4 max-w-lg break-words text-base leading-relaxed text-text-secondary'>
-						<Intro />
-					</div>
-				</header>
-
-				<motion.section
-					className='mb-16'
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{
-						duration: 0.5,
-						delay: 0.6,
-						ease: FADE_EASE,
+		<MotionConfig reducedMotion='user'>
+			<main className='flex min-h-svh w-full items-center justify-center px-6 py-12 text-left sm:px-10 sm:py-16'>
+				<m.div
+					className='mx-auto w-full max-w-lg'
+					initial='hidden'
+					animate='visible'
+					variants={{
+						hidden: {},
+						visible: {
+							transition: {
+								delayChildren: 0.08,
+								staggerChildren: reduceMotion ? 0 : 0.08,
+							},
+						},
 					}}>
-					<h2 className='mb-6 text-sm uppercase tracking-widest text-text-tertiary'>
-						selected work
-					</h2>
+					<header className='mb-10'>
+						<m.h1
+							className='text-2xl font-semibold text-text'
+							variants={{
+								hidden: { opacity: 0, y: enterOffset },
+								visible: { opacity: 1, y: 0 },
+							}}
+							transition={{ duration: 0.55, ease: EASE_OUT }}>
+							<NameSwap />
+						</m.h1>
 
-					<ul className='divide-y divide-text-tertiary/15'>
-						{PROJECTS.map((project, i) => {
-							const href =
-								project.url ?? project.githubUrl ?? '#';
-							const isExternal = Boolean(
-								project.url ?? project.githubUrl
-							);
-							return (
-								<motion.li
-									key={project.title}
-									initial={{ opacity: 0, y: 10 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{
-										duration: 0.5,
-										delay: 0.7 + i * 0.06,
-										ease: FADE_EASE,
-									}}
-									className='py-4'>
-									<div className='flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-6'>
-										<div className='flex items-center gap-2'>
-											<HoverCard
-												underline={false}
-												content={project.description}>
-												<AnimatedLink
-													href={href}
-													external={isExternal}
-													className={cn(
-														'text-base',
-														project.isNew
-															? '!text-transparent hover:!text-transparent'
-															: 'text-text'
-													)}>
-													{project.isNew ? (
-														<ChromaticText>
-															{project.title}
-														</ChromaticText>
-													) : (
-														project.title
-													)}
-												</AnimatedLink>
-											</HoverCard>
-										</div>
-										<span className='text-sm text-text-tertiary sm:text-right'>
-											{project.languages?.join(' · ')}
-										</span>
-									</div>
-								</motion.li>
-							);
-						})}
-					</ul>
-				</motion.section>
+						<m.div
+							className='mt-5 max-w-md space-y-5 break-words text-base leading-relaxed text-text-secondary'
+							variants={{
+								hidden: { opacity: 0, y: enterOffset },
+								visible: { opacity: 1, y: 0 },
+							}}
+							transition={{ duration: 0.55, ease: EASE_OUT }}>
+							<Intro paragraphs={ABOUT_PARAGRAPHS} />
+						</m.div>
+					</header>
 
-				<motion.footer
-					className='grid gap-4 border-t border-text-tertiary/15 pt-6 text-sm text-text-tertiary sm:grid-cols-[1fr_auto] sm:items-center'
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{
-						duration: 0.5,
-						delay: 0.9,
-						ease: FADE_EASE,
-					}}>
-					<p>&copy; {year} noah. all rights reserved.</p>
-					<nav className='flex flex-wrap gap-x-5 gap-y-2'>
-						<AnimatedLink
-							href='/github'
-							external
-							className='text-sm text-text-tertiary hover:text-text'>
-							github
-						</AnimatedLink>
-						<AnimatedLink
-							href='/yt'
-							external
-							className='text-sm text-text-tertiary hover:text-text'>
-							youtube
-						</AnimatedLink>
-						<AnimatedLink
-							href='/threads'
-							external
-							className='text-sm text-text-tertiary hover:text-text'>
-							threads
-						</AnimatedLink>
-						<AnimatedLink
-							href='/instagram'
-							external
-							className='text-sm text-text-tertiary hover:text-text'>
-							instagram
-						</AnimatedLink>
-					</nav>
-					{commitHash ? (
-						<p className='text-xs text-text-tertiary/70 sm:col-span-2 sm:justify-self-end'>
-							@{commitHash}
-						</p>
-					) : null}
-				</motion.footer>
-			</div>
-		</div>
+					<m.footer
+						className='flex flex-col items-start gap-3 border-t border-text-tertiary/15 pt-5 text-sm text-text-tertiary'
+						initial={{ opacity: 0, y: enterOffset }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true, margin: '-48px' }}
+						transition={{
+							duration: 0.5,
+							ease: EASE_OUT,
+						}}>
+						<p>&copy; {year} noah. all rights reserved.</p>
+						<nav className='flex flex-wrap justify-start gap-x-5 gap-y-2'>
+							<AnimatedLink
+								href='/github'
+								external
+								className='text-sm text-text-tertiary hover:text-text'>
+								github
+							</AnimatedLink>
+							<AnimatedLink
+								href='/yt'
+								external
+								className='text-sm text-text-tertiary hover:text-text'>
+								youtube
+							</AnimatedLink>
+							<AnimatedLink
+								href='/threads'
+								external
+								className='text-sm text-text-tertiary hover:text-text'>
+								threads
+							</AnimatedLink>
+							<AnimatedLink
+								href='/instagram'
+								external
+								className='text-sm text-text-tertiary hover:text-text'>
+								instagram
+							</AnimatedLink>
+						</nav>
+					</m.footer>
+				</m.div>
+			</main>
+		</MotionConfig>
 	);
 }

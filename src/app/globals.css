@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+:root {
+	--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
 @theme {
 	--font-sans: var(--font-inter);
 	--color-background: oklch(0.97 0.012 85);
@@ -27,5 +31,44 @@
 	}
 	body {
 		@apply bg-background text-text;
+	}
+}
+
+.text-reveal-word {
+	animation: text-reveal var(--reveal-duration) var(--ease-out) both;
+	animation-delay: var(--reveal-delay);
+}
+
+@keyframes text-reveal {
+	from {
+		opacity: 0;
+		filter: blur(4px);
+	}
+	to {
+		opacity: 1;
+		filter: blur(0);
+	}
+}
+
+@keyframes text-reveal-opacity {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+/* Keyboard navigation can expose a hover card before its scheduled reveal. */
+.reveal-paragraph:focus-within .text-reveal-word {
+	opacity: 1 !important;
+	filter: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.text-reveal-word {
+		animation-name: text-reveal-opacity;
+		animation-duration: 200ms;
+		animation-delay: 0s;
 	}
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import * as motion from 'motion/react-client';
+import * as m from 'motion/react-m';
 
 interface ChromaticTextProps {
 	children: string;
@@ -8,7 +8,7 @@ interface ChromaticTextProps {
 
 export function ChromaticText({ children }: ChromaticTextProps) {
 	return (
-		<motion.span
+		<m.span
 			className='inline-block bg-clip-text text-transparent [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]'
 			style={{
 				backgroundImage:
@@ -25,6 +25,6 @@ export function ChromaticText({ children }: ChromaticTextProps) {
 				repeat: Infinity,
 			}}>
 			{children}
-		</motion.span>
+		</m.span>
 	);
 }
