@@ -185,22 +185,23 @@ export function Intro({ paragraphs = [] }: { paragraphs?: readonly string[] }) {
 		musicContent,
 		introPosition
 	);
+	const paragraphElements: ReactNode[] = [];
 	let delay = nextParagraphDelay(introPosition);
+
+	for (const text of paragraphs) {
+		const position = { current: 0, delay };
+		paragraphElements.push(
+			<p key={text} className='reveal-paragraph'>
+				{renderAnimatedWords(text, position)}
+			</p>
+		);
+		delay = nextParagraphDelay(position);
+	}
 
 	return (
 		<>
 			<p className='reveal-paragraph'>{introduction}</p>
-			{paragraphs.map((text) => {
-				const position = { current: 0, delay };
-				const content = renderAnimatedWords(text, position);
-				delay = nextParagraphDelay(position);
-
-				return (
-					<p key={text} className='reveal-paragraph'>
-						{content}
-					</p>
-				);
-			})}
+			{paragraphElements}
 		</>
 	);
 }
